@@ -1,0 +1,99 @@
+Writing nowadays tools in GO
+
+Olivier Wulveryck
+Geek
+Techsys
+@owulveryck
+o.wulveryck@techsys.fr
+
+* Acknowledgement
+
+The begining of this presentation is heavily inspired by a talk from Sameer Ajmani (manager of the go team) presented at the [[http://applicative.acm.org/][ACM Applicative]] conference in New York City on June 1, 2016.
+
+.link https://www.youtube.com/watch?v=5bYO60-qYOI Watch the talk on YouTube
+
+* Outline
+
+1. What is Go, and who uses it?
+2. Comparing Go and other languages
+3. Code examples
+4. Concurrency
+5. Getting started
+
+* What is Go?
+
+"Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
+
+.link http://golang.org
+
+* Why Go?
+
+I needed another language for problems shell scripts cannot simply solve.
+
+- modern (calling network services, interacting with API, json etc.)
+- few dependencies to carry my tools over 100s of servers
+- simple to learn as I was not a developper
+
+* Who uses Go besides Google?
+
+.link http://golang.org/wiki/GoUsers
+
+Aerospike, BBC Worldwide, Bitbucket, Booking.com, Core OS, Datadog, Digital Ocean, Docker, Dropbox, Facebook, Getty Images, GitHub, GOV.UK, Heroku, IBM, Intel, InfluxDB, Iron.io, Kubernetes, Medium, MongoDB, Mozilla services, Netflix, New York Times, pool.ntp.org, Rackspace, Shutterfly, SmugMug, SoundCloud, SpaceX, Square, Stack Exchange, Thomson Reuters Eikon, Tumblr, Twitch, Twitter, Uber, VMWare ...
+
+* Comparing Go and other languages
+
+* "Go: 90% Perfect, 100% of the time" -bradfitz, 2014
+
+.image https://talks.golang.org/2014/gocon-tokyo/funfast.svg
+
+# Brad Fitzpatrick, GoCon Tokyo, May 2014
+
+* Go differs from Java in several ways
+
+Fast, efficient for computers:
+
+- Programs compile to machine code.  There's no VM.
+- Control over memory layout, fewer indirections
+
+Fun, fast for humans:
+
+- Simple, concise syntax
+- Statically linked binaries
+- Built-in strings (UTF-8)
+- Built-in generic maps and arrays/slices
+- Built-in concurrency
+
+* Go intentionally leaves out many features
+
+- No classes
+- No inheritance
+- No constructors
+- No `final`
+- No exceptions
+- No annotations
+- No user-defined generics
+
+* Why does Go leave out those features?
+
+Clarity is critical.
+
+When reading code, it should be clear what the program will do.
+
+When writing code, it should be clear how to make the program do what you want.
+
+Sometimes this means writing out a loop instead of invoking an obscure function.
+
+(Don't DRY out.)
+
+For more background on design:
+
+- [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
+- [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
+
+* Code examples
+
+* Go looks familiar
+
+Hello, world!
+
+
