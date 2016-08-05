@@ -96,4 +96,49 @@ For more background on design:
 
 .play -edit sources/hello/hello.go
 
+* A real life example
 
+Getting the total and the free memory on a system.
+
+- via /proc/meminfo
+- via an exec to vmstat
+- via a call to free
+- ...
+
+A lot of fork, how about efficiency?
+
+* A better way
+- using the a syscall 
+ $ man 2 sysinfo
+ SYSINFO(2)                                                               Linux Programmer's Manual                                                              SYSINFO(2)
+ 
+ NAME
+       sysinfo - returns information on overall system statistics
+ ...
+- [[https://golang.org/pkg/syscall/]]
+.code sources/memcheck/main.go /START_IMPORT OMIT/,/END_IMPORT OMIT/ 
+
+* Getting the information from the structure
+
+Emitting the syscall and store it in the value
+
+.code sources/memcheck/main.go /START_STRUCT OMIT/,/END_STRUCT OMIT/ 
+
+And display it
+
+.code sources/memcheck/main.go /START_DISPLAY OMIT/,/END_DISPLAY OMIT/ 
+
+* About error checking
+
+No exception, but an error object may be returned
+
+.code sources/memcheck/main.go /START_ERROR OMIT/,/END_ERROR OMIT/ 
+
+* The full code
+
+.play -edit -numbers sources/memcheck/main.go 
+
+* Run, build, distribute, run !
+
+- go run main.go
+- go build main.go
