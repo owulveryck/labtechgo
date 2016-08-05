@@ -90,10 +90,10 @@ For more background on design:
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
 - [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
 
-* Code examples
+* Let's code
 
-* Go looks familiar
+* Hello World!
 
-Hello, world!
+.play -edit sources/hello/hello.go
 
 
