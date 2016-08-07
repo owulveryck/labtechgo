@@ -116,27 +116,27 @@ A lot of fork, how about efficiency?
        sysinfo - returns information on overall system statistics
  ...
 - [[https://golang.org/pkg/syscall/]]
-.code sources/memcheck/main.go /START_IMPORT OMIT/,/END_IMPORT OMIT/ 
+.code sources/memcheck/1_main.go /START_IMPORT OMIT/,/END_IMPORT OMIT/ 
 
 * Getting the information from the structure
 
 Emitting the syscall and store it in the value
 
-.code sources/memcheck/main.go /START_STRUCT OMIT/,/END_STRUCT OMIT/ 
+.code sources/memcheck/1_main.go /START_STRUCT OMIT/,/END_STRUCT OMIT/ 
 
 And display it
 
-.code sources/memcheck/main.go /START_DISPLAY OMIT/,/END_DISPLAY OMIT/ 
+.code sources/memcheck/1_main.go /START_DISPLAY OMIT/,/END_DISPLAY OMIT/ 
 
 * About error checking
 
 No exception, but an error object may be returned
 
-.code sources/memcheck/main.go /START_ERROR OMIT/,/END_ERROR OMIT/ 
+.code sources/memcheck/1_main.go /START_ERROR OMIT/,/END_ERROR OMIT/ 
 
 * The full code
 
-.play -edit -numbers sources/memcheck/main.go 
+.play -edit -numbers sources/memcheck/1_main.go 
 
 * Run, build, distribute, run !
 
