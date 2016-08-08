@@ -88,8 +88,6 @@ When writing code, it should be clear how to make the program do what you want.
 
 Sometimes this means writing out a loop instead of invoking an obscure function.
 
-(Don't DRY out.)
-
 For more background on design:
 
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
