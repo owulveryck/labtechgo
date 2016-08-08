@@ -1,33 +1,29 @@
-// START_IMPORT OMIT
 package main
 
+// START_IMPORT OMIT
 import (
 	"fmt"
 	"log"
-	"os"
-	"syscall" // HL
-	"time"
+	"os" // To access Stdout // HL
+	"syscall"
+	"time" // HL
 )
 
-// START_STRUCT OMIT
+// END_IMPORT OMIT
+
 func main() {
-	//END_IMPORT OMIT
-	var s syscall.Sysinfo_t // HLSysinfo
-	// START_ERROR OMIT
+	var s syscall.Sysinfo_t
+	// START_LOOP OMIT
 	for {
 		err := syscall.Sysinfo(&s) // HLs
 
 		if err != nil {
 			log.Fatal(err)
 		}
-		// END_STRUCT OMIT
-		// END_ERROR OMIT
-		// START_DISPLAY OMIT
-		w := os.Stdout
-		fmt.Fprintln(w, "Total ram:", s.Totalram)
-		fmt.Fprintln(w, "Free ram:", s.Freeram)
-		fmt.Fprintln(w, "Free swap:", s.Freeswap)
-		time.Sleep(100 * time.Millisecond)
-		// END_DISPLAY OMIT
+		// Introducing the Fprintf to write to a "stream" // HL
+		w := os.Stdout // HL
+		fmt.Fprintf(w, "RAM: %v / %v\nSWAP: %v / %v\n", s.Freeram, s.Totalram, s.Freeswap, s.Totalswap)
+		time.Sleep(100 * time.Millisecond) // HL
 	}
+	// END_LOOP OMIT
 }

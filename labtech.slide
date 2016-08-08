@@ -180,4 +180,58 @@ No exception, but an error object may be returned
 #################################################################
 ########################## STEP 2 ###############################
 #################################################################
-* Step 2
+* Step 2: looping
+
+.play sources/memcheck/2_loop.go /START_LOOP OMIT/,/END_LOOP OMIT/ 
+
+and of course, don't forget to include the time library
+
+.code sources/memcheck/2_loop.go /START_IMPORT/,/END_IMPORT/
+
+#################################################################
+########################## STEP 3 ###############################
+#################################################################
+* Step 3: functions
+
+.play -edit -numbers sources/memcheck/3_functions.go /START_FUNC/,/END_FUNC/
+
+#################################################################
+########################## STEP 4 ###############################
+#################################################################
+* Step 4: Serving the world!
+
+Go has go a very complete and concurrent network http package `net/http`
+Therefore it's easy to setup a web servers
+
+.code -numbers sources/simpleweb/main.go
+
+* Our function as a handler...
+
+godoc net/http
+
+  58     ListenAndServe starts an HTTP server with a given address and handler.
+  59     The handler is usually nil, which means to use DefaultServeMux. Handle
+  60     and HandleFunc add handlers to DefaultServeMux:
+  61 
+  62         http.Handle("/foo", fooHandler)
+  63 
+  64         http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {                                                                                            
+  65                 fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+  66         })
+  67 
+  68         log.Fatal(http.ListenAndServe(":8080", nil))
+
+* getMem as a handler
+
+getMem should act as a handler for our webserver.
+So we must change the signature
+
+.code sources/memcheck/4_server.go /START_SIGNATURE/,/END_SIGNATURE/
+
+when we write to `w` we won't write to stdout anymore, but to the webstream
+
+.code sources/memcheck/4_server.go /START_WRITE/,/END_WRITE/ HLw
+
+* Main as a server
+
+.play sources/memcheck/4_server.go /START_HTTP/,/END_HTTP/

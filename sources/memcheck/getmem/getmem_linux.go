@@ -1,31 +1,25 @@
-// +build OMIT
-package main
+// Package getmem is a cross plateform package to access the memory information via syscall
+// +build linux
+package getmem
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"syscall" // HL
 	"time"
 )
 
-// START_FUNC OMIT
-func getMem() { // HL
+// GetMem displays the memory on a linux system
+func GetMem() error { // HL
 	var s syscall.Sysinfo_t
 	for {
 		err := syscall.Sysinfo(&s)
 
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 		w := os.Stdout
 		fmt.Fprintf(w, "RAM: %v / %v\nSWAP: %v / %v\n", s.Freeram, s.Totalram, s.Freeswap, s.Totalswap)
 		time.Sleep(100 * time.Millisecond)
 	}
-} // HL
-
-func main() {
-	getMem() // HL
 }
-
-// END_FUNC OMIT
