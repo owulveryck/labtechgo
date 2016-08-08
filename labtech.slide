@@ -235,3 +235,14 @@ when we write to `w` we won't write to stdout anymore, but to the webstream
 * Main as a server
 
 .play -edit sources/memcheck/4_server.go /START_HTTP/,/END_HTTP/
+
+#################################################################
+########################## STEP 5 ###############################
+#################################################################
+* Step 5: Webservice ? JSON ?
+
+.code sources/memcheck/5_json.go /START_IMPORT/,/END_IMPORT/
+
+[[https://gobyexample.com/json]] just copy/paste the example...
+.code sources/memcheck/5_json.go /START_DISPLAY/,/END_DISPLAY/
+

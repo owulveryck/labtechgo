@@ -3,31 +3,26 @@
 package main
 
 import (
-	"encoding/json"
+	"encoding/json" // HL
 	"fmt"
 	"log"
 	"net/http"
-	"syscall" // HL
-	//	"time"
+	"syscall"
 )
 
-// START_STRUCT OMIT
+// END_IMPORT OMIT
+
 func getMem(w http.ResponseWriter, req *http.Request) {
-	//END_IMPORT OMIT
 	var s syscall.Sysinfo_t // HLSysinfo
-	// START_ERROR OMIT
 	for {
 		err := syscall.Sysinfo(&s) // HLs
 
 		if err != nil {
 			log.Fatal(err)
 		}
-		// END_STRUCT OMIT
-		// END_ERROR OMIT
 		// START_DISPLAY OMIT
 		enc := json.NewEncoder(w)
 		enc.Encode(map[string]uint64{"total": s.Totalram, "free": s.Freeram, "swap": s.Freeswap})
-		//		time.Sleep(100 * time.Millisecond)
 		// END_DISPLAY OMIT
 	}
 }
