@@ -14,11 +14,12 @@ The begining of this presentation is heavily inspired by a talk from Sameer Ajma
 
 * Outline
 
-1. What is Go, and who uses it?
-2. Comparing Go and other languages
-3. Code examples
-4. Concurrency
-5. Getting started
+_Explore,_Play..._and_Create_
+
+1. *explore* What is Go, and who uses it?
+2. *explore* Comparing Go and other languages 
+3. *play* coding a tool
+4. *create*...
 
 * What is Go?
 
@@ -26,25 +27,34 @@ The begining of this presentation is heavily inspired by a talk from Sameer Ajma
 
 .link http://golang.org
 
-* Why Go?
+.image img/usergroups.png
+
+.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
+
+* Why Go? Why me? 
 
 I needed another language for problems shell scripts cannot simply solve.
 
 - modern (calling network services, interacting with API, json etc.)
 - few dependencies to carry my tools over 100s of servers
 - simple to learn as I was not a developper
+- concurrent but easy to read and maintain 
+
+.image img/simplicity.jpg _ 400
 
 * Who uses Go besides Google?
 
 .link http://golang.org/wiki/GoUsers
 
-Aerospike, BBC Worldwide, Bitbucket, Booking.com, Core OS, Datadog, Digital Ocean, Docker, Dropbox, Facebook, Getty Images, GitHub, GOV.UK, Heroku, IBM, Intel, InfluxDB, Iron.io, Kubernetes, Medium, MongoDB, Mozilla services, Netflix, New York Times, pool.ntp.org, Rackspace, Shutterfly, SmugMug, SoundCloud, SpaceX, Square, Stack Exchange, Thomson Reuters Eikon, Tumblr, Twitch, Twitter, Uber, VMWare ...
+Bitbucket, Booking.com, Core OS, Datadog, Digital Ocean, Docker, Dropbox, Facebook, Getty Images, GitHub, GOV.UK, Heroku, IBM, Intel, InfluxDB, Kubernetes, MongoDB, Mozilla services, Netflix, New York Times, SoundCloud, Tumblr, Twitter, Uber, VMWare ...
+
+.image img/emc_gournal.jpg _ 400
 
 * Comparing Go and other languages
 
-* "Go: 90% Perfect, 100% of the time" -bradfitz, 2014
+"Go: 90% Perfect, 100% of the time" - bradfitz, 2014
 
-.image https://talks.golang.org/2014/gocon-tokyo/funfast.svg
+.image https://talks.golang.org/2014/gocon-tokyo/funfast.svg _ 800
 
 # Brad Fitzpatrick, GoCon Tokyo, May 2014
 
@@ -90,7 +100,9 @@ For more background on design:
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
 - [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
 
-* Let's code
+* Let's play
+
+.image img/baracktocat.jpg _ 400
 
 * Hello World!
 
@@ -100,9 +112,24 @@ For more background on design:
 
 Getting the total and the free memory on a system.
 
-- via /proc/meminfo
-- via an exec to vmstat
-- via a call to free
+.caption Telling a programmer there's already a library to do X is like telling a songwriter there's already a song about love - Pete Cordell
+
+Different steps:
+
+- step 1: simply displaying it on `stdout`
+- step 2: display it in a loop
+- step 3: defining a function
+- step 4: acting as a server (http)
+- step 5: going the API way and use JSON
+- step 6: vieiwing the results
+
+* Step 1: Getting the data
+
+More than one way to do it:
+
+- via `/proc/meminfo`
+- via an `exec` to `vmstat`
+- via a call to `free`
 - ...
 
 A lot of fork, how about efficiency?
