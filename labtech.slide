@@ -21,6 +21,8 @@ _Explore,_Play..._and_Create_
 3. *play* coding a tool
 4. *create*...
 
+.image img/paint-591564_960_720.png _ 400
+
 * What is Go?
 
 "Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
@@ -58,7 +60,7 @@ Bitbucket, Booking.com, Core OS, Datadog, Digital Ocean, Docker, Dropbox, Facebo
 
 # Brad Fitzpatrick, GoCon Tokyo, May 2014
 
-* Go differs from Java in several ways
+* Go differs from other "popular" languages
 
 Fast, efficient for computers:
 
@@ -68,22 +70,15 @@ Fast, efficient for computers:
 Fun, fast for humans:
 
 - Simple, concise syntax
-- Statically linked binaries
+- *Statically* linked *binaries*
 - Built-in strings (UTF-8)
 - Built-in generic maps and arrays/slices
 - Built-in concurrency
+- Easy *cross-compilation*
 
-* Go intentionally leaves out many features
+* Why does Go leave out some "modern" features?
 
-- No classes
-- No inheritance
-- No constructors
-- No `final`
-- No exceptions
-- No annotations
-- No user-defined generics
-
-* Why does Go leave out those features?
+In go there is no `classes`, `inheritance`, `constructor`, `final`, `exceptions`,...
 
 Clarity is critical.
 
@@ -108,6 +103,22 @@ For more background on design:
 
 .play -edit sources/hello/hello.go
 
+* Setting the environment up
+
+Downloading a go distribution ([[https://golang.org/dl/]]) and extract it somewhere
+
+ export GOROOT=/path/to/projects
+ export GOPATH=/path/to/go/tree
+
+try the hello world:
+
+ go get -v github.com/techsysfr/labtechgo/sources/hello
+ cd $GOPROJECTS/src/github.com/techsysfr/labtechgo/sources/hello
+ 
+ go run hello.go
+ go build hello.go
+ GOOS=windows go build hello.go
+
 * A real life example
 
 Getting the total and the free memory on a system.
@@ -123,6 +134,9 @@ Different steps:
 - step 5: going the API way and use JSON
 - step 6: vieiwing the results
 
+#################################################################
+########################## STEP 1 ###############################
+#################################################################
 * Step 1: Getting the data
 
 More than one way to do it:
@@ -165,7 +179,7 @@ No exception, but an error object may be returned
 
 .play -edit -numbers sources/memcheck/1_main.go 
 
-* Run, build, distribute, run !
-
-- go run main.go
-- go build main.go
+#################################################################
+########################## STEP 2 ###############################
+#################################################################
+* Step 2

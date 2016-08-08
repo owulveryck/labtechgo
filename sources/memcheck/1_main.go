@@ -20,8 +20,6 @@ func main() {
 	// END_STRUCT OMIT
 	// END_ERROR OMIT
 	// START_DISPLAY OMIT
-	fmt.Println("Total ram:", s.Totalram)
-	fmt.Println("Free ram:", s.Freeram)
-	fmt.Println("Free swap:", s.Freeswap)
+	fmt.Printf("RAM: %v / %v\nSWAP: %v / %v\n", s.Freeram, s.Totalram, s.Freeswap, s.Totalswap)
 	// END_DISPLAY OMIT
 }
