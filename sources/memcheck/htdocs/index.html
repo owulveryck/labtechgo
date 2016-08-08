@@ -24,6 +24,7 @@
           data.addColumn('number', 'Free RAM');
           data.addColumn('number', 'Free Swap');
 
+          console.log("here");
           $.each(results, function (i, row) {
             data.addRow([
               (new Date(row.timestamp)),
@@ -54,6 +55,7 @@
 
   </head>
   <body>
+  Memory usage
     <div id="chart" style="width: 100%;"></div>
   </body>
 </html>
