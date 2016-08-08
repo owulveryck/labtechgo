@@ -234,4 +234,4 @@ when we write to `w` we won't write to stdout anymore, but to the webstream
 
 * Main as a server
 
-.play sources/memcheck/4_server.go /START_HTTP/,/END_HTTP/
+.play -edit sources/memcheck/4_server.go /START_HTTP/,/END_HTTP/
