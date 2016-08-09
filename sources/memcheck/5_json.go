@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"syscall"
+	"time"
 )
 
 // END_IMPORT OMIT
@@ -23,6 +24,7 @@ func getMem(w http.ResponseWriter, req *http.Request) {
 		// START_DISPLAY OMIT
 		enc := json.NewEncoder(w)
 		enc.Encode(map[string]uint64{"total": s.Totalram, "free": s.Freeram, "swap": s.Freeswap})
+		time.Sleep(1 * time.Second)
 		// END_DISPLAY OMIT
 	}
 }

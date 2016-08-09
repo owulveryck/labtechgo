@@ -12,12 +12,13 @@ import (
 )
 
 // END_IMPORT OMIT
+
 // START_STRUCT OMIT
-type output struct {
+type result struct {
 	Timestamp string `json:"timestamp"`
 	TotalRAM  uint64 `json:"totalram"`
-	FreeRAM   uint64 `json:"freemem"`
-	FreeSWAP  uint64 `json:"freeswap"`
+	FreeRAM   uint64 `json:"freeram"`
+	Swap      uint64 `json:"freeswap"`
 }
 
 // END_STRUCT OMIT
@@ -30,15 +31,11 @@ func getMem(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// START_HEADER OMIT
 	w.Header().Set("Content-Type", "text/event-stream")
-	// END_HEADER OMIT
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-
 	var s syscall.Sysinfo_t // HLSysinfo
-	enc := json.NewEncoder(w)
 	for {
 		err := syscall.Sysinfo(&s) // HLs
 
@@ -47,22 +44,24 @@ func getMem(w http.ResponseWriter, req *http.Request) {
 		}
 		// START_DISPLAY OMIT
 		fmt.Fprintf(w, "data: ")
-
-		enc.Encode(&output{time.Now().Format("Mon Jan 02 15:04:05 -0700 2006"), s.Totalram, s.Freeram, s.Freeswap}) // HL
-		fmt.Fprintf(w, "\n\n")
+		var r result
+		r.Timestamp = time.Now().Format("Mon Jan 02 15:04:05 -0700 2006")
+		r.TotalRAM = s.Totalram
+		r.FreeRAM = s.Freeram
+		r.Swap = s.Freeswap
+		b, err := json.Marshal(r) // HL
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Fprintf(w, string(b))
 		// END_DISPLAY OMIT
-		// Flush the data immediatly instead of buffering it for later.
 		flusher.Flush()
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(100 * time.Millisecond)
 	}
 }
 
-// START_NEW OMIT
 func main() {
-	http.HandleFunc("/mem", getMem)
-	http.Handle("/", http.FileServer(http.Dir("htdocs"))) // HL
+	http.HandleFunc("/mem", getMem) // HL
 	fmt.Println("serving on http://localhost:7777/mem")
 	log.Fatal(http.ListenAndServe("localhost:7777", nil))
 }
-
-// END_NEW OMIT

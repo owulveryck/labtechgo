@@ -250,3 +250,6 @@ when we write to `w` we won't write to stdout anymore, but to the webstream
 
 * Optionnal: a client
 .html sources/memcheck/htdocs/index.html
+.code sources/memcheck/6_optional.go /START_STRUCT/,/END_STRUCT/ 
+.code sources/memcheck/6_optional.go /START_HEADER/,/END_HEADER/
+.play sources/memcheck/6_optional.go /START_NEW/,/END_NEW/
