@@ -246,5 +246,7 @@ when we write to `w` we won't write to stdout anymore, but to the webstream
 [[https://gobyexample.com/json]] just copy/paste the example...
 .code sources/memcheck/5_json.go /START_DISPLAY/,/END_DISPLAY/
 
+* So what now?
+
 * Optionnal: a client
 .html sources/memcheck/htdocs/index.html

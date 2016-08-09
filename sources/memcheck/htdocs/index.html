@@ -14,7 +14,7 @@
   // onload callback
   function drawChart() {
 
-  var jsonStream = new EventSource('/mem')
+  var jsonStream = new EventSource('http://localhost:7777/mem')
     var data = new google.visualization.DataTable();
     data.addColumn('datetime', 'Time');
     data.addColumn('number', 'Total RAM');
