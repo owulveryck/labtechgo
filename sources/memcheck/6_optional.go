@@ -14,16 +14,31 @@ import (
 // END_IMPORT OMIT
 // START_STRUCT
 type output struct {
-	Timestamp time.Time `json:"timestamp"`
-	FreeRAM   uint64    `json:"freemem"`
-	FreeSWAP  uint64    `json:"freeswap"`
+	Timestamp string `json:"timestamp"`
+	TotalRAM  uint64 `json:"totalram"`
+	FreeRAM   uint64 `json:"freemem"`
+	FreeSWAP  uint64 `json:"freeswap"`
 }
 
 // END_STRUCT
 
 func getMem(w http.ResponseWriter, req *http.Request) {
+	// Make sure that the writer supports flushing.
+	//
+	flusher, ok := w.(http.Flusher)
+
+	if !ok {
+		http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var s syscall.Sysinfo_t // HLSysinfo
-	fmt.Fprintf(w, "[")
+	enc := json.NewEncoder(w)
 	for {
 		err := syscall.Sysinfo(&s) // HLs
 
@@ -31,13 +46,15 @@ func getMem(w http.ResponseWriter, req *http.Request) {
 			log.Fatal(err)
 		}
 		// START_DISPLAY OMIT
-		enc := json.NewEncoder(w)
+		fmt.Fprintf(w, "data: ")
 
-		enc.Encode(&output{time.Now(), s.Freeram, s.Freeswap})
-		fmt.Fprintf(w, ",")
+		enc.Encode(&output{time.Now().Format("Mon Jan 02 15:04:05 -0700 2006"), s.Totalram, s.Freeram, s.Freeswap})
+		fmt.Fprintf(w, "\n\n")
 		// END_DISPLAY OMIT
+		// Flush the data immediatly instead of buffering it for later.
+		flusher.Flush()
+		time.Sleep(1000 * time.Millisecond)
 	}
-	fmt.Fprintf(w, "]")
 }
 
 func main() {

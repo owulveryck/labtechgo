@@ -1,62 +1,91 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
 <html>
-  <head>
-    <!-- EXTERNAL LIBS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://www.google.com/jsapi"></script>
+<head>
+  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org"><!-- EXTERNAL LIBS-->
 
-    <!-- EXAMPLE SCRIPT -->
-    <script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript">
+</script>
+  <script src="https://www.google.com/jsapi" type="text/javascript">
+</script><!-- EXAMPLE SCRIPT -->
 
-      // onload callback
-      function drawChart() {
+  <script type="text/javascript">
 
-        // JSONP request
-        var jsonData = $.ajax({
-          url: '/mem',
-          data: {page: 1},
-          dataType: 'jsonp',
-        }).done(function (results) {
+  // onload callback
+  function drawChart() {
 
-          var data = new google.visualization.DataTable();
+  var jsonStream = new EventSource('/mem')
+    var data = new google.visualization.DataTable();
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number', 'Total RAM');
+    data.addColumn('number', 'Free RAM');
+    //data.addColumn('number', 'Free Swap');
+    jsonStream.onmessage = function (e) {
+      var message = JSON.parse(e.data);
+      data.addRow([
+          (new Date(message.timestamp)),
+          parseFloat(message.totalram),
+          parseFloat(message.totalram-message.freemem)
+          //parseFloat(message.freeswap)
+          ]);
 
-          data.addColumn('datetime', 'Time');
-          data.addColumn('number', 'Free RAM');
-          data.addColumn('number', 'Free Swap');
+  var chart = new google.visualization.LineChart($('#chart').get(0));
 
-          console.log("here");
-          $.each(results, function (i, row) {
-            data.addRow([
-              (new Date(row.timestamp)),
-              parseFloat(row.freemem),
-              parseFloat(row.freeswap)
-            ]);
-          });
+  chart.draw(data, {
+  title: 'Memory usage'
+  });
+    };
 
-          var chart = new google.visualization.LineChart($('#chart').get(0));
+  }
 
-          chart.draw(data, {
-            title: 'Memory usage'
-          });
+//
+//  // JSONP request
+//  var jsonData = $.ajax({
+//  url: '/mem',
+//  dataType: 'json',
+//  }).done(function (results) {
+//
+//  console.log(results);
+//  var data = new google.visualization.DataTable();
+//
+//  data.addColumn('datetime', 'Time');
+//  data.addColumn('number', 'Free RAM');
+//  data.addColumn('number', 'Free Swap');
+//
+//  $.each(results, function (i, row) {
+//    data.addRow([
+//      (new Date(row.timestamp)),
+//      parseFloat(row.freemem),
+//      parseFloat(row.freeswap)
+//      ]);
+//    });
+//
+//  var chart = new google.visualization.LineChart($('#chart').get(0));
+//
+//  chart.draw(data, {
+//  title: 'Memory usage'
+//  });
+//
+//  });
+//
+ // }
 
-        });
+  // load chart lib
+  google.load('visualization', '1', {
+  packages: ['corechart']
+  });
 
-      }
+  // call drawChart once google charts is loaded
+  google.setOnLoadCallback(drawChart);
 
-      // load chart lib
-      google.load('visualization', '1', {
-        packages: ['corechart']
-      });
+  </script>
 
-      // call drawChart once google charts is loaded
-      google.setOnLoadCallback(drawChart);
+  <title></title>
+</head>
 
-    </script>
-
-  </head>
-  <body>
+<body>
   Memory usage
-    <div id="chart" style="width: 100%;"></div>
-  </body>
-</html>
 
+  <div id="chart" style="width: 100%;"></div>
+</body>
+</html>
