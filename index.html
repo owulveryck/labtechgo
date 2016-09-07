@@ -28,7 +28,7 @@
                                   <h2>Vous &ecirc;tes vous d&eacute;j&agrave; retrouv&eacute; limit&eacute; par le shell</h2>
                                   <pre> <code data-trim data-noescape>
 # Recuperation de la valeur depuis l'API
-curl http://monapi | sed 's/;//g | grep -o json | awk -F= '{print $1}'....
+curl http://monapi | sed 's/;/\n/g | grep -o json | awk -F= '{print $1}'....
                                   </code></pre>
                                 </section>
                                 <section>
